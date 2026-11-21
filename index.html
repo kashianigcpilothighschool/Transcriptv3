@@ -1332,6 +1332,10 @@
                         <button type="button" class="mode-btn" id="modeIndividualBtn" onclick="selectTeacherMode('INDIVIDUAL')">INDIVIDUAL</button>
                         <button type="button" class="mode-btn" id="modeAllBtn" onclick="selectTeacherMode('ALL')">ALL</button>
                     </div>
+                    <label style="display:flex;align-items:center;gap:6px;margin-top:8px;font-size:13px;cursor:pointer;">
+                        <input type="checkbox" id="hidePositionCheck" style="width:auto;margin:0;">
+                        Position ফাঁকা রাখুন
+                    </label>
                 </div>
                 <div class="field">
                     <label for="classSelect">Class :</label>
@@ -1556,6 +1560,7 @@
                 document.getElementById('teacherModeField').style.display = 'none';
                 document.getElementById('teacherIdInput').value = '';
                 document.getElementById('teacherPassInput').value = '';
+                document.getElementById('hidePositionCheck').checked = false;
                 teacherMode = null;
                 document.getElementById('modeIndividualBtn').classList.remove('active');
                 document.getElementById('modeAllBtn').classList.remove('active');
@@ -1819,6 +1824,12 @@
 
         // ✅ একজন শিক্ষার্থীর সম্পূর্ণ ট্রান্সক্রিপ্ট HTML তৈরি করে (string রিটার্ন করে, সরাসরি দেখায় না)
         // এটি displayResult (INDIVIDUAL) এবং displayAllResults (ALL) — দুটোতেই ব্যবহৃত হয়
+        // ✅ শিক্ষক মোডে "Position ফাঁকা রাখুন" টিক দিলে Position-এর ঘর ফাঁকা থাকবে (শিক্ষার্থী মোডে কখনো নয়)
+        function isPositionHidden() {
+            const c = document.getElementById('hidePositionCheck');
+            return !!(teacherMode && c && c.checked);
+        }
+
         function buildTranscriptHTML(data) {
             const info = data.studentInfo;
             const results = data.results;
@@ -1970,7 +1981,7 @@
                                 <div class="summary-item"><strong>GPA:</strong> ${results.gpa}</div>
                                 <div class="summary-item"><strong>Grade:</strong> ${results.letterGrade}</div>
                             </div>
-                            <div class="summary-item summary-right"><strong>Position:</strong> ${results.position}</div>
+                            <div class="summary-item summary-right"><strong>Position:</strong> ${isPositionHidden() ? '' : results.position}</div>
                         </div>
                     </div>
                 </div>
