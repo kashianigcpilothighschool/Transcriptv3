@@ -327,6 +327,30 @@
             flex: 1;
         }
 
+        /* "Position ফাঁকা রাখুন" টিক-বক্স (.field label/.field input-এর নিয়ম ওভাররাইড) */
+        .field .pos-check {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: auto;
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: normal;
+            cursor: pointer;
+        }
+
+        .field .pos-check input {
+            flex: none;
+            width: 18px;
+            height: 18px;
+            min-width: 0;
+            margin: 0;
+            padding: 0 !important;
+            accent-color: #14A44D;
+            cursor: pointer;
+        }
+
         .mode-btn {
             flex: 1;
             padding: 10px 14px;
@@ -1328,14 +1352,16 @@
                 </div>
                 <div class="field" id="teacherModeField" style="display:none;">
                     <label>Mode :</label>
-                    <div class="mode-buttons">
-                        <button type="button" class="mode-btn" id="modeIndividualBtn" onclick="selectTeacherMode('INDIVIDUAL')">INDIVIDUAL</button>
-                        <button type="button" class="mode-btn" id="modeAllBtn" onclick="selectTeacherMode('ALL')">ALL</button>
+                    <div style="flex:1;min-width:0;">
+                        <div class="mode-buttons">
+                            <button type="button" class="mode-btn" id="modeIndividualBtn" onclick="selectTeacherMode('INDIVIDUAL')">INDIVIDUAL</button>
+                            <button type="button" class="mode-btn" id="modeAllBtn" onclick="selectTeacherMode('ALL')">ALL</button>
+                        </div>
+                        <label class="pos-check">
+                            <input type="checkbox" id="hidePositionCheck">
+                            <span>Position ফাঁকা রাখুন</span>
+                        </label>
                     </div>
-                    <label style="display:flex;align-items:center;gap:6px;margin-top:8px;font-size:13px;cursor:pointer;">
-                        <input type="checkbox" id="hidePositionCheck" style="width:auto;margin:0;">
-                        Position ফাঁকা রাখুন
-                    </label>
                 </div>
                 <div class="field">
                     <label for="classSelect">Class :</label>
